@@ -31,32 +31,127 @@ elif temperatura < 30:
 # como `log = {'timestamp': '2021-06-23 10:00:00', 'level': 'ERROR', 'message': 'Falha na conexão'}`, 
 # escreva um programa que imprima a mensagem se a severidade for 'ERROR'.
 
+log = {'timestamp': '2021-06-23 10:00:00', 'level': 'ERROR', 'message': 'Falha na conexão'}
+if log['level'] == 'ERROR':
+    print("Log com mensagem de ERROR")
+    
+
 ### Exercício 4: Validação de Dados de Entrada
 # Antes de processar os dados de usuários em um sistema de recomendação, 
 # você precisa garantir que cada usuário tenha idade entre 18 e 65 anos e tenha 
 # fornecido um email válido. Escreva um programa que valide essas condições 
 # e imprima "Dados de usuário válidos" ou o erro específico encontrado.
 
+bd_email = ["teste@gmail.com","teste2@gmail.com", "teste3@gmail.com"]
+idade_valida = range(18,65)
+
+idade_usuario = int(input("Informe sua idade:"))
+email_usuario = input("Informe seu email:")
+
+if idade_usuario in idade_valida and email_usuario in bd_email:
+    print("Usuario validado!")
+else:
+    print("Usuario invalido!")
+    
 ### Exercício 5: Detecção de Anomalias em Dados de Transações
 # Você está trabalhando em um sistema de detecção de fraude e precisa identificar 
 # transações suspeitas. Uma transação é considerada suspeita se o valor for superior 
 # a R$ 10.000 ou se ocorrer fora do horário comercial (antes das 9h ou depois das 18h). 
 # Dada uma transação como `transacao = {'valor': 12000, 'hora': 20}`, verifique se ela é suspeita.
 
+transacao = {"valor": 12000, "hora": 20}
+if transacao["valor"] > 10000 and transacao["hora"] < 9 or transacao["hora"] > 18:
+    print("Transação suspeita")
+else:
+    print("Transação OK")
+
 ### Exercício 6. Contagem de Palavras em Textos
 # Objetivo:** Dado um texto, contar quantas vezes cada palavra única aparece nele.
+
+texto = "Ola, estou aprendendo a contar quantas vezes cada palavra unica aparece"
+contagem_palavras = {}
+
+novo_texto = texto.upper()
+lista_palavras = novo_texto.split()
+
+for palavra in lista_palavras:
+    if palavra in contagem_palavras:
+        contagem_palavras[palavra] += 1
+    else:
+        contagem_palavras[palavra] = 1
+
+print(contagem_palavras)
 
 ### Exercício 7. Normalização de Dados
 # Objetivo:** Normalizar uma lista de números para que fiquem na escala de 0 a 1.
 
+lista = [10,20,30,40,50]
+valor_minimo = min(lista)
+valor_maximo = max(lista)
+
+nova_lista = []
+for valor in lista:
+    valor_normalizado = (valor - valor_minimo) / (valor_maximo - valor_minimo)
+    nova_lista.append(valor_normalizado)
+print(nova_lista)
+    
+
 ### Exercício 8. Filtragem de Dados Faltantes
 # Objetivo:** Dada uma lista de dicionários representando dados de usuários, filtrar aqueles que têm um campo específico faltando
 
+usuarios = {
+    "usuario1": {
+        "Nome": "Gabriel",
+        "Idade": 20
+    },
+    "usuario2": {
+        "Nome": "Juliana",
+        "Idade": 25
+    },
+    "usuario3": {
+        "Nome": "Pedro",
+        "Idade": None
+    }
+}
+
+for chave_usuario, dados_usuario in usuarios.items():
+    idade = dados_usuario["Idade"]
+    if idade is None:
+        print(f"O usuario {chave_usuario} tem idade faltando")
+        
 ### Exercício 9. Extração de Subconjuntos de Dados
 # Objetivo:** Dada uma lista de números, extrair apenas aqueles que são pares.
 
+lista_numeros = [0,1,2,3,4,5,6,7,8,9,10]
+lista_pares = []
+for numero in lista_numeros:
+    if numero % 2 == 0:
+        lista_pares.append(numero)
+print(lista_pares)
+
 ### Exercício 10. Agregação de Dados por Categoria
 # Objetivo:** Dado um conjunto de registros de vendas, calcular o total de vendas por categoria.
+
+vendas = [
+    {"categoria": "Eletrônicos", "valor": 1500},
+    {"categoria": "Livros", "valor": 50},
+    {"categoria": "Eletrônicos", "valor": 800},
+    {"categoria": "Livros", "valor": 25},
+    {"categoria": "Vestuário", "valor": 120},
+    {"categoria": "Livros", "valor": 75}
+]
+
+total_vendas_por_categoria = {}
+
+for venda in vendas:
+    categoria = venda["categoria"]
+    valor = venda["valor"]
+    if categoria in total_vendas_por_categoria:
+        total_vendas_por_categoria[categoria] += valor
+    else:
+        total_vendas_por_categoria[categoria] = valor
+        
+print(total_vendas_por_categoria)
 
 ### Exercícios com WHILE
 
@@ -88,6 +183,7 @@ for pagina in lista_paginas:
 
 ### Exercício 14. Tentativas de Conexão
 # Simular tentativas de reconexão a um serviço com um limite máximo de tentativas.
+
 tentativas = 5
 login = "teste"
 while tentativas > 0:
@@ -102,3 +198,13 @@ print("Numero de tentativas excedido")
 
 ### Exercício 15. Processamento de Dados com Condição de Parada
 # Processar itens de uma lista até encontrar um valor específico que indica a parada.
+valor_parada = 3
+lista_valores = [0,1,2,3,4,5]
+for valor in lista_valores:
+    print(f"Processando item {valor}")
+    if valor == valor_parada:
+        print("Valor encontrado")
+        break
+    else:
+        print("Valor não encontrado")
+        continue
